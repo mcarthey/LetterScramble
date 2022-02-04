@@ -17,9 +17,18 @@ namespace LetterScramble
             Console.WriteLine("Enter word:");
             var word = Console.ReadLine();
 
-            var wordValue = CalculateWordValue(word);
+            var isValidWord = ValidateWord(word);
 
-            Console.WriteLine($"Your word value is {wordValue}");
+            if (!isValidWord)
+            {
+                var wordValue = CalculateWordValue(word);
+                Console.WriteLine($"Your word value is {wordValue}");
+            }
+        }
+
+        private static bool ValidateWord(string? word)
+        {
+            return true;
         }
 
         private static int CalculateWordValue(string? word)
@@ -54,7 +63,7 @@ namespace LetterScramble
 
             for (int i = 0; i < scrambled.Count; i++)
             {
-                table.AddRow(scrambled[i], scrambled[i+1], scrambled[i+2], scrambled[i+3]);
+                table.AddRow(scrambled[i], scrambled[i + 1], scrambled[i + 2], scrambled[i + 3]);
                 i += 3;
             }
 
