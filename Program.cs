@@ -19,7 +19,7 @@ namespace LetterScramble
 
             var isValidWord = ValidateWord(word);
 
-            if (!isValidWord)
+            if (isValidWord)
             {
                 var wordValue = CalculateWordValue(word);
                 Console.WriteLine($"Your word value is {wordValue}");
