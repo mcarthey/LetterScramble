@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Spectre.Console;
 
 namespace LetterScramble
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var words = GenerateWords();
             var scrambled = ScrambleWords(words);
@@ -17,7 +19,7 @@ namespace LetterScramble
             Console.WriteLine("Enter word:");
             var word = Console.ReadLine();
 
-            var isValidWord = ValidateWord(word);
+            var isValidWord = await ValidateWord(word);
 
             if (isValidWord)
             {
@@ -26,11 +28,21 @@ namespace LetterScramble
             }
         }
 
-        private static bool ValidateWord(string? word)
+        private static async Task<bool> ValidateWord(string? word)
         {
+            await CallApi();
             return true;
         }
 
+        private static async Task CallApi()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://api.publicapis.org/");
+            var response = await client.GetAsync("entries?title=cat");
+
+            var body = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(body);
+        }
         private static int CalculateWordValue(string? word)
         {
             int pointValue = 0;
